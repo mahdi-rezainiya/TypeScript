@@ -1,3 +1,4 @@
+"use strict";
 // const charc = "mahdi" ;
 // console.log(charc);
 // const inputs = document.querySelectorAll('input');
