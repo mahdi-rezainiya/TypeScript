@@ -1,3 +1,9 @@
+import { HasFormatter } from "./Interfaces/HasFormatter.js";
+import { Invoice } from "./classes/Invoice.js";
+import { Payment } from "./classes/Payment.js";
+import { ListTemplate } from "./classes/ListTemplate.js";
+
+
 // const charc = "mahdi" ;
 // console.log(charc);
 // const inputs = document.querySelectorAll('input');
@@ -180,22 +186,13 @@
 
 // console.log(form.children);
 
-// const form = document.querySelector('.new-item-form') as HTMLFormElement;
+const form = document.querySelector('.new-item-form') as HTMLFormElement;
 //inputs
-// const type = document.querySelector('#type') as HTMLSelectElement;
-// const tofrom = document.querySelector('#tofrom') as HTMLInputElement;
-// const details = document.querySelector('#details') as HTMLInputElement;
-// const amount = document.querySelector('#amount') as HTMLInputElement;
+const type = document.querySelector('#type') as HTMLSelectElement;
+const tofrom = document.querySelector('#tofrom') as HTMLInputElement;
+const details = document.querySelector('#details') as HTMLInputElement;
+const amount = document.querySelector('#amount') as HTMLInputElement;
 
-// form.addEventListener('submit', (e: Event) => {
-//     e.preventDefault();
-//     console.log(
-//         type.value,
-//         tofrom.value,
-//         details.value,
-//         amount.valueAsNumber
-//     );
-// })
 
 // class Invoice {
 //     public client : string ;
@@ -227,14 +224,64 @@
     // console.log(inv.amout);
 // }
 
-class Invoice{
-    constructor(public client : string , private details : string , readonly amount : number){
-        
+// let invOne = new Invoice("mahdi" , "web developer" , 240);
+// let invTwo = new Invoice("ali" , "ios developer" , 440);
+// console.log(invOne.client);
+// console.log(invTwo.details);
+// console.log(invTwo.amount);
+
+// interface isPerson {
+//     name : string ;
+//     age : number ;
+//     speak(a : string): void ;
+//     spend(a : number) : number
+// }
+
+// const me : isPerson = {
+//     name : "mahdi" , age : 22 , speak(text : string){console.log(text);}, spend(amount : number){return amount} 
+// }
+
+
+
+// const greetPerson = (person : isPerson) => {
+    // console.log("hello" , person.name);
+// }
+// greetPerson(me)
+// let Docs : HasFormatter[] = [] ;
+// Docs.push(DocOne);
+// Docs.push(DocTwo);
+// console.log(Docs);
+// let DocTwo : Payment ;
+// let DocOne : Invoice ;
+
+let DocOne : HasFormatter ;
+let DocTwo : HasFormatter ;
+// DocOne = new Invoice("mahdi" , "web design" , 240);
+// DocTwo = new Payment("ali" , "ux & ui" , 40);
+
+const ul = document.querySelector('ul')!;
+const list = new ListTemplate(ul);
+
+form.addEventListener('submit', (e: Event) => {
+    e.preventDefault();
+
+    let values : [string , string , number]
+    values = [tofrom.value , details.value , amount.valueAsNumber]
+
+    let doc : HasFormatter;
+    if(type.value === 'صورتحساب'){
+        doc = new Invoice(...values);
+    } else {
+        doc = new Payment(...values);
     }
-    format(){
-        return `${this.client} owes ${this.amount} for ${this.details}`
-    }
-}
+
+    list.render(doc, type.value, 'end');
+})
+
+
+
+
+
 
 
 
